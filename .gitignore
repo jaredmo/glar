@@ -46,3 +46,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.csv
+.Rproj.user
+*.Rproj
+*.Rhistory
