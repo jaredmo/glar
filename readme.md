@@ -14,57 +14,52 @@ In order to run the analytics, you'll need R with the following packages install
 - readr
 
 If you are new to R, follow the instructions below:
-     1. Install RStudio from here: https://www.rstudio.com/
-     2. Type the following into the console for each package listed above: install.packages("[package name]")
+ 1. Install RStudio from here: https://www.rstudio.com/
+ 2. Type the following into the console for each package listed above: install.packages("[package name]")
 
 	 
-### Prerequisites
+### Quick start:
 
-####Quick start:
-
-1. Create a working directory (ex. C:\glar)
-2. Open gla.r in RStudio
-3. Update setwd() with new path
-4. Click "Source" (Ctrl + Shift + S) to run
-5. Follow prompt in placement of input files. See specifics below.
+ 1. Create a working directory (ex. C:\glar)
+ 2. Open gla.r in RStudio
+ 3. Update setwd() with new path
+ 4. Click "Source" (Ctrl + Shift + S) to run
+ 5. Follow prompt in placement of input files. See specifics below.
 
 
-####Input:
+### Input:
 
 You will need to provide three .csv files: gl.csv, tb.csv, and coa.csv. They will need to contain the fields below. 
 Actual ERP field names will vary depending on the system, so data prep procedures will be required.
 Pre-reconciliation of the trial balance to ledger detail is also recommended.
 
-Journal lines (gl.csv)
-Required fields:
-jrnl_id <chr> 
-descp <chr> 
-posting_pd <chr>
-posting_yr <chr>
-post_date <dttm>
-eff_date <dttm>
-user_id <chr>
-apprvr_id <chr>
-system <chr>
-jrnl_line_nbr <chr>
-account <chr>
-amount <dbl>
-dr_cr <chr>
-origin_code <chr>
+Journal lines (gl.csv) required fields:
+ 1. jrnl_id <chr> 
+ 2. descp <chr> 
+ 3. posting_pd <chr>
+ 4. posting_yr <chr>
+ 5. post_date <dttm>
+ 6. eff_date <dttm>
+ 7. user_id <chr>
+ 8. apprvr_id <chr>
+ 9. system <chr>
+10. jrnl_line_nbr <chr>
+11. account <chr>
+12. amount <dbl>
+13. dr_cr <chr>
+14. origin_code <chr>
 
-Trial balance (tb.csv)
-Required fields:
-account <chr>
-beg_bal <dbl>
-period_act <dbl>
-end_bal <dbl>
+Trial balance (tb.csv) required fields:
+ 1. account <chr>
+ 2. beg_bal <dbl>
+ 3. period_act <dbl>
+ 4. end_bal <dbl>
 		
-Chart of accounts (coa.csv)
-Required fields:
-account <chr>
+Chart of accounts (coa.csv) required fields:
+ 1. account <chr>
 
 
-####Output:
+### Output:
 
 Output from analytics will be either plots or output in .csv format. Below are descriptions of the tests. All tests divided between system and manual entries.
 
