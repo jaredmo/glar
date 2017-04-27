@@ -34,67 +34,72 @@ Actual ERP field names will vary depending on the system, so data prep procedure
 Pre-reconciliation of the trial balance to ledger detail is also recommended.
 
 Journal lines (gl.csv) required fields:
- 1. jrnl_id <chr> 
- 2. descp <chr> 
- 3. posting_pd <chr>
- 4. posting_yr <chr>
- 5. post_date <dttm>
- 6. eff_date <dttm>
- 7. user_id <chr>
- 8. apprvr_id <chr>
- 9. system <chr>
-10. jrnl_line_nbr <chr>
-11. account <chr>
-12. amount <dbl>
-13. dr_cr <chr>
-14. origin_code <chr>
+
+Field          | Type   | Description
+-------------- | ------ | ---------------------------------------
+Journal ID     | <chr>  | Unique journal number
+Description    | <chr> 	| Transaction description
+Fiscal Period  | <chr>  | Period of transaction	
+Fiscal Year    | <chr>  | Year of transaction
+Post Date      | <date> | Date of entry
+Effective Date | <date> | Date effective on financials
+User ID        | <chr>  | Preparer of transaction
+Approver ID    | <chr>  | Approver of transaction
+System/Manual  | <chr>  | System generated entry flag
+Line Number    | <chr>  | Unique number for each Journal ID line
+Account        | <chr>  | Ledger account
+Amount         | <num>  | Amount of transaction
+Dr Cr          | <chr>  | Debit/credit indicator
 
 Trial balance (tb.csv) required fields:
- 1. account <chr>
- 2. beg_bal <dbl>
- 3. period_act <dbl>
- 4. end_bal <dbl>
+
+Field             | Type   | Description
+----------------- | ------ | -------------------
+Account           | <chr>  | Ledger account
+Beginning Balance | <num>  | Balance at start of period
+Ending Balance    | <num>  | Balance at end of period
 		
 Chart of accounts (coa.csv) required fields:
- 1. account <chr>
+
+Field             | Type   | Description
+----------------- | ------ | -------------------
+Account           | <chr>  | Ledger account
 
 
 ### Output:
 
-Output from analytics will be either plots or output in .csv format. Below are descriptions of the tests. All tests divided between system and manual entries.
+Output from analytics below will available in the R Markdown file: glar.Rmd
 
-[To be completed...]
-
-	1. Reconciliation
-		 1. Prompt: Entries and trial balance net to 0
-		 2. Prompt: Entries and trial balance activity reconcile
-	2. Summary Statistics
-		 1. System/manual entries (pie chart)
-		 2. Amounts by user
-		 3. Top amounts
-	3. Data Quality Indicators
-		 1. Entries with blank user
-		 3. Entries with blank account
-		 4. Entries that do not net to 0 
-		 5. Entries with an invalid effective date
-		 6. Entries with an effective date outside test period
-		 7. Entries with a negative debit or credit amount
-		 8. Entries with a blank posted date
-		 9. Entries with blank entry description
-		11. Percent of COA without activity
-	4. Journal Analytics
-		 1. Entries posted on weekends or holidays
-		 2. Duplicate lines to the same account
-		 3. Entries with same preparer and approver	- DONE!	
-		 4. Entries to unrelated accounts
-		 5. Entries with blank or little description
-		 6. Entries with key words in description
-		 7. Entries with round dollar amount
-		 8. Entries with recurring ending digits
-		 9. Large credits to revenue at cutoff
-		10. Relationship between reserve and corresponding accounts
-		11. Effective date earlier than posted date (% of lines, >15, >30, >60, >90, >120)
-		12. Benford curve compared leading two digits
+1. Reconciliation
+	 a. Journal lines and trial balance net to 0
+	 b. Journal lines and trial balance activity reconcile
+2. Summary Statistics
+	 a. System/manual journal lines
+	 b. Counts and amounts by user
+	 c. Top amounts
+3. Data Quality Indicators
+	 a. Journal lines with blank user
+	 b. Journal lines with blank account
+	 c. Journals that do not net to 0 
+	 d. Journal lines with an invalid effective date
+	 e. Journal lines with an effective date outside test period
+	 f. Journal lines with a negative debit or credit amount
+	 g. Journal lines with a blank posted date
+	 h. Journal lines with blank entry description
+	 i. Percent of COA without activity
+4. Journal Analytics
+	 a. Journal lines posted on weekends or holidays
+	 b. Duplicate lines to the same account
+	 c. Journal lines with same preparer and approver
+	 d. Journal lines to unrelated accounts
+	 e. Journal lines with blank or little description
+	 f. Journal lines with key words in description
+	 g. Journal lines with round dollar amount
+	 h. Journal lines with recurring ending digits
+	 i. Large credits to revenue at cutoff
+	 j. Relationship between reserve and corresponding accounts
+	 k. Effective date earlier than posted date (% of lines, >15, >30, >60, >90, >120)
+	 l. Benford curve compared leading two digits  
 
 
 ## Author

@@ -1,0 +1,66 @@
+#General Journal Analytics for R
+Below are the results for your data. Additional detail is available in the /output directory.  
+
+The following tests were performed...     
+
+1. Reconciliation
+	 a. Journal lines and trial balance net to 0
+	 b. Journal lines and trial balance activity reconcile
+2. Summary Statistics
+	 a. System/manual journal lines
+	 b. Counts and amounts by user
+	 c. Top amounts
+3. Data Quality Indicators
+	 a. Journal lines with blank user
+	 b. Journal lines with blank account
+	 c. Journals that do not net to 0 
+	 d. Journal lines with an invalid effective date
+	 e. Journal lines with an effective date outside test period
+	 f. Journal lines with a negative debit or credit amount
+	 g. Journal lines with a blank posted date
+	 h. Journal lines with blank entry description
+	 i. Percent of COA without activity
+4. Journal Analytics
+	 a. Journal lines posted on weekends or holidays
+	 b. Duplicate lines to the same account
+	 c. Journal lines with same preparer and approver
+	 d. Journal lines to unrelated accounts
+	 e. Journal lines with blank or little description
+	 f. Journal lines with key words in description
+	 g. Journal lines with round dollar amount
+	 h. Journal lines with recurring ending digits
+	 i. Large credits to revenue at cutoff
+	 j. Relationship between reserve and corresponding accounts
+	 k. Effective date earlier than posted date (% of lines, >15, >30, >60, >90, >120)
+	 l. Benford curve compared leading two digits  
+
+## Import and process data  
+```{r}
+source("import.r")
+source("gla.r")
+```
+  
+## Results  
+
+###1a: Journal lines and trial balance net to 0
+```{r echo=FALSE}
+gl_txt
+tb_txt
+```
+
+###1b: Journal lines and trial balance activity reconcile
+The follow accounts do *not* reconcile between the ledger and trial balance.
+```{r echo=FALSE}
+recon
+```
+
+###2a: System/manual journal lines
+```{r echo=FALSE}
+plot2a
+```
+
+###4c: Journal lines with same preparer and approver
+```{r echo=FALSE}
+plot4c
+```
+
