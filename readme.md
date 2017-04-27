@@ -4,34 +4,37 @@ UPDATE 4/26/17: Version 1.0 of this project is in active development.
 # General Ledger Analytics for R
 
 A series of analytics for ERP general ledger data. Purpose is to identify data quality issues and unusual patterns.
+
 ***
 
 ## Getting Started
 
-In order to run the analytics, you'll need R with the following packages installed. https://www.rstudio.com/
-- ggplot2
-- data.table
-- readr
+In order to run the analysis, you'll need RStudio with the following packages installed.
+* ggplot2
+* data.table
+* readr
 
 If you are new to R, follow the instructions below:
- 1. Install RStudio from here: https://www.rstudio.com/
+ 1. Install RStudio from https://www.rstudio.com/
  2. Type the following into the console for each package listed above: install.packages("[package name]")
+
 ***
 	 
 ### Quick start:
 
  1. Create a working directory (ex. C:\glar)
  2. Open gla.r in RStudio
- 3. Update setwd() with new path
- 4. Click "Source" (Ctrl + Shift + S) to run
- 5. Follow prompt in placement of input files. See specifics below.
+ 3. Update setwd() with path
+ 4. Place gl.csv, tb.csv and coa.csv in root of working directory
+ 5. Open glar.Rmd in RStudio and click "Knit to HTML"
+ 6. Enjoy the results! 
+
 ***
 
 ### Input:
 
-You will need to provide three .csv files: gl.csv, tb.csv, and coa.csv. They will need to contain the fields below. 
-Actual ERP field names will vary depending on the system, so data prep procedures will be required.
-Pre-reconciliation of the trial balance to ledger detail is also recommended.
+You will need to provide three .csv files: gl.csv, tb.csv, and coa.csv. Fields need to be in the order listed below. They are renamed on import, so header names are flexible. 
+Data preparation procedures will likely be required for your specific ERP. Pre-reconciliation of the trial balance to journal line detail is also recommended.
 
 **Journal lines (gl.csv) required fields:**
 
@@ -64,6 +67,7 @@ Ending Balance    | num  | Balance at end of period
 Field             | Type | Description
 ----------------- | ---- | -------------------
 Account           | chr  | Ledger account
+
 ***
 
 ### Output:
