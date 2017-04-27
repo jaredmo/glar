@@ -20,7 +20,7 @@ If you are new to R, follow the instructions below:
 	 
 ### Prerequisites
 
-Quick start:
+####Quick start:
 
 1. Create a working directory (ex. C:\glar)
 2. Open gla.r in RStudio
@@ -29,42 +29,42 @@ Quick start:
 5. Follow prompt in placement of input files. See specifics below.
 
 
-Input:
+####Input:
 
 You will need to provide three .csv files: gl.csv, tb.csv, and coa.csv. They will need to contain the fields below. 
 Actual ERP field names will vary depending on the system, so data prep procedures will be required.
 Pre-reconciliation of the trial balance to ledger detail is also recommended.
 
 Journal lines (gl.csv)
-	Required fields:
-		jrnl_id <chr> 
-		descp <chr> 
-		posting_pd <chr>
-		posting_yr <chr>
-		post_date <dttm>
-		eff_date <dttm>
-		user_id <chr>
-		apprvr_id <chr>
-		system <chr>
-		jrnl_line_nbr <chr>
-		account <chr>
-		amount <dbl>
-		dr_cr <chr>
-		origin_code <chr>
+Required fields:
+jrnl_id <chr> 
+descp <chr> 
+posting_pd <chr>
+posting_yr <chr>
+post_date <dttm>
+eff_date <dttm>
+user_id <chr>
+apprvr_id <chr>
+system <chr>
+jrnl_line_nbr <chr>
+account <chr>
+amount <dbl>
+dr_cr <chr>
+origin_code <chr>
 
 Trial balance (tb.csv)
-	Required fields:
-		account <chr>
-		beg_bal <dbl>
-		period_act <dbl>
-		end_bal <dbl>
+Required fields:
+account <chr>
+beg_bal <dbl>
+period_act <dbl>
+end_bal <dbl>
 		
 Chart of accounts (coa.csv)
-	Required fields:
-		account <chr>
+Required fields:
+account <chr>
 
 
-Output:
+####Output:
 
 Output from analytics will be either plots or output in .csv format. Below are descriptions of the tests. All tests divided between system and manual entries.
 
