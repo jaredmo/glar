@@ -16,6 +16,10 @@ require(readr)
 setwd('G:/My Documents/GitHub/glar')
 getwd()
 
+# Set system/manual variables
+sys_flg <- "S"
+man_flg <- "N"
+
 
 # Create output folder
 dir.create(file.path(getwd(), "output"), showWarnings = FALSE)

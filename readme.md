@@ -23,7 +23,7 @@ If you are new to R, follow the instructions below:
 ### Quick start:
 
  1. Create a working directory (ex. C:\glar)
- 2. Open gla.r in RStudio
+ 2. Open import.r in RStudio
  3. Update setwd() with path
  4. Place gl.csv, tb.csv and coa.csv in root of working directory
  5. Open glar.Rmd in RStudio and click "Knit to HTML"
