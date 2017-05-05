@@ -20,24 +20,15 @@ gl <- data.table(gl)
 tb <- data.table(tb)
 
 
-# Set rounding (1000 = Thousands, 1000000 = Millions)
-div = 1000000
-
-
 # 1a: Journal lines and trial balance net to 0
 gl_sumtotal <- gl[, sum(amount, na.rm = TRUE)]
 gl_linetotal <- gl[, .N]
-gl_sum <- gl[, sum(amount, na.rm = TRUE), keyby = (jrnl_id)]
-gl_unbal <- gl_sum[abs(V1) > 0.01]
-colnames(gl_unbal)[2] <- "amount"
-gl_txt <- paste("There are", gl_linetotal, "journal lines totaling", gl_sumtotal)
-write_excel_csv(gl_unbal, path = "output/1a_gl_unbal.csv", na = "")
-remove(gl_sum)
+txt1a_gl <- paste("There are", gl_linetotal, "journal lines totaling", gl_sumtotal)
 
 tb$period_act <- tb$end_bal - tb$beg_bal
 tb_sumtotal <- tb[, sum(period_act, na.rm = TRUE)]
 tb_linetotal <- tb[, .N]
-tb_txt <- paste("There are", tb_linetotal, "trial balance lines totaling", tb_sumtotal)
+txt1a_tb <- paste("There are", tb_linetotal, "trial balance lines totaling", tb_sumtotal)
 
 
 # 1b: Journal lines and trial balance activity reconcile
@@ -68,7 +59,6 @@ plot2a
 
 
 # 2b: Summary statistics by non-system user
-
 gl_debits <- gl[amount > 0 & system == man_flg]
 gl_credits <- gl[amount <= 0 & system == man_flg]
 gl_debits <-
@@ -86,23 +76,45 @@ gl_credits <-
     mean = round(mean(amount), -3) / div
   ), keyby = .(user_id)]
 
-plot2b_dr <- ggplot(gl_debits, aes(mean, max)) +
-  geom_point(size = 2) +
+plot2b_dr <- ggplot(gl_debits, aes(mean, max, label = as.character(user_id))) +
+  geom_text(size = 3) +
   labs(
     title = "Debit Lines by User",
-    caption = "",
+    caption = paste("Amounts divided by", div),
     x = "Mean Line",
     y = "Max Line"
   )
 
-plot2b_cr <- ggplot(gl_credits, aes(mean, min)) +
-  geom_point(size = 2)  +
+
+plot2b_cr <- ggplot(gl_credits, aes(mean, min, label = as.character(user_id))) +
+  geom_text(size = 3)  +
   labs(
     title = "Credit Lines by User",
-    caption = "",
+    caption = paste("Amounts divided by", div),
     x = "Mean Line",
     y = "Max Line"
   )
+
+gl_top <- rbind(head(gl[order(-amount)],10),head(gl[order(amount)],10))
+write_excel_csv(gl_top, path = "output/2b_gl_top.csv", na = "")
+
+
+# 3a: Journal lines with blank user
+txt3a_man <- paste("There are", gl[is.na(user_id) & system == man_flg, .N], "manually generated lines with a blank user.") 
+txt3a_sys <- paste("There are", gl[is.na(user_id) & system == sys_flg, .N], "system generated lines with a blank user.")
+
+
+# 3b: Journal lines with blank account
+txt3b_man <- paste("There are", gl[is.na(account) & system == man_flg, .N], "manually generated lines with a blank account.")
+txt3b_sys <- paste("There are", gl[is.na(account) & system == sys_flg, .N], "system generated lines with a blank account.")
+
+
+# 3c: Journals that do not net to 0 
+gl_unbal <- gl[, sum(amount, na.rm = TRUE), keyby = (jrnl_id)]
+gl_unbal <- gl_unbal[abs(V1) > 0.01]
+colnames(gl_unbal)[2] <- "amount"
+write_excel_csv(gl_unbal, path = "output/3c_gl_unbal.csv", na = "")
+txt3c <- paste("There are", gl_unbal[, .N], "journals that do not balance.")
 
 
 # 4c: Journal lines with same preparer and approver

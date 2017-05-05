@@ -20,6 +20,9 @@ getwd()
 sys_flg <- "S"
 man_flg <- "N"
 
+# Set rounding (1000 = Thousands, 1000000 = Millions)
+div = 1000000
+
 
 # Create output folder
 dir.create(file.path(getwd(), "output"), showWarnings = FALSE)

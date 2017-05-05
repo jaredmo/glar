@@ -9,7 +9,6 @@ The following tests were performed...
 2. Summary Statistics
 	 a. System/manual journal lines
 	 b. Summary statistics by user
-	 c. Top amounts
 3. Data Quality Indicators
 	 a. Journal lines with blank user
 	 b. Journal lines with blank account
@@ -49,8 +48,8 @@ div
 
 ###1a: Journal lines and trial balance net to 0
 ```{r echo=FALSE}
-gl_txt
-tb_txt
+txt1a_gl
+txt1a_tb
 ```
 
 ###1b: Journal lines and trial balance activity reconcile
@@ -78,6 +77,29 @@ print("Top 10 Users by Min Credit")
 head(gl_credits[order(rank(min))],10)
 plot2b_cr
 ```
+Note: See output folder for top 10 debit and credit line detail.
+
+
+###3a: Journal lines with blank user
+```{r echo=FALSE}
+txt3a_man
+txt3a_sys
+```
+
+
+###3b: Journal lines with blank account
+```{r echo=FALSE}
+txt3b_man
+txt3b_sys
+```
+
+
+### 3c: Journals that do not net to 0 
+```{r echo=FALSE}
+txt3c
+```
+Note: See output folder for unbalanced journal detail.
+
 
 ###4c: Journal lines with same preparer and approver
 ```{r echo=FALSE}
