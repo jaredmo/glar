@@ -13,11 +13,11 @@ The following tests were performed...
 	 a. Journal lines with blank user
 	 b. Journal lines with blank account
 	 c. Journals that do not net to 0 
-	 d. Journal lines with an invalid effective date
-	 e. Journal lines with an effective date outside test period
-	 f. Journal lines with a negative debit or credit amount
-	 g. Journal lines with a blank posted date
-	 h. Journal lines with blank entry description
+	 d. Journal lines with a negative debit or credit amount
+	 e. Journal lines with a blank effective date
+	 f. Journal lines with a blank posted date
+	 g. Journal lines with a blank entry description
+	 h. Journal lines with an effective date outside test period
 	 i. Percent of COA without activity
 4. Journal Analytics
 	 a. Journal lines posted on weekends or holidays
@@ -94,11 +94,56 @@ txt3b_sys
 ```
 
 
-### 3c: Journals that do not net to 0 
+###3c: Journals that do not net to 0 
 ```{r echo=FALSE}
 txt3c
 ```
 Note: See output folder for unbalanced journal detail.
+
+
+###3d: Journal lines with a negative debit or credit amount
+```{r echo=FALSE}
+txt3d_dr_man
+txt3d_dr_sys
+txt3d_cr_man
+txt3d_cr_sys
+```
+Note: See output folder for journal lines with negative debit or credit amount.
+
+
+###3e: Journal lines with a blank effective date
+```{r echo=FALSE}
+txt3e
+```
+Note: See output folder for journal lines with a blank effective date.
+
+
+###3f: Journal lines with a blank posted date
+```{r echo=FALSE}
+txt3f
+```
+Note: See output folder for journal lines with a blank posted date.
+
+
+###3g: Journal lines with a blank entry description
+```{r echo=FALSE}
+txt3g
+```
+Note: See output folder for journal lines with a blank entry description.
+
+
+###3h: Journal lines with an effective date outside test period
+```{r echo=FALSE}
+txt3h
+```
+Note: See output folder for journal lines with an effective date outside test period.
+
+
+###3i: Percent of COA without activity
+```{r echo=FALSE}
+plot3i
+```
+Note: See output folder for detail.
 
 
 ###4c: Journal lines with same preparer and approver

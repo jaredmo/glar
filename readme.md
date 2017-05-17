@@ -85,11 +85,11 @@ Output from analytics below will available in the R Markdown file: glar.Rmd
 		 a. Journal lines with blank user
 		 b. Journal lines with blank account
 		 c. Journals that do not net to 0 
-		 d. Journal lines with an invalid effective date
-		 e. Journal lines with an effective date outside test period
-		 f. Journal lines with a negative debit or credit amount
-		 g. Journal lines with a blank posted date
-		 h. Journal lines with blank entry description
+		 d. Journal lines with a negative debit or credit amount
+		 e. Journal lines with a blank effective date
+		 f. Journal lines with a blank posted date
+		 g. Journal lines with blank entry description
+		 h. Journal lines with an effective date outside test period
 		 i. Percent of COA without activity
 	4. Journal Analytics
 		 a. Journal lines posted on weekends or holidays

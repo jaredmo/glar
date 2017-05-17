@@ -16,9 +16,21 @@ require(readr)
 setwd('G:/My Documents/GitHub/glar')
 getwd()
 
+
 # Set system/manual variables
 sys_flg <- "S"
 man_flg <- "N"
+
+
+# Set debit/credit variables
+dr_flg <- "D"
+cr_flg <- "C"
+
+
+# Set test period
+beg_dt <- as.Date("2017-01-01")
+end_dt <- as.Date("2017-03-31")
+
 
 # Set rounding (1000 = Thousands, 1000000 = Millions)
 div = 1000000
@@ -37,6 +49,12 @@ gl <-
 
 tb <-
   read_csv(file = "tb.csv",
+           na = c("", "NA"),
+           col_names = TRUE,
+           col_types = cols())
+
+coa <-
+  read_csv(file = "coa.csv",
            na = c("", "NA"),
            col_names = TRUE,
            col_types = cols())
@@ -78,5 +96,9 @@ tb$account <- as.character(tb$account)
 tb$beg_bal <- as.numeric(tb$beg_bal)
 tb$end_bal <- as.numeric(tb$end_bal)
 head(tb, 0)
+
+colnames(coa)[1] <- "account"
+coa$account <- as.character(coa$account)
+head(coa, 0)
 
 
