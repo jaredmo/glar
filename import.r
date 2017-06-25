@@ -13,7 +13,7 @@ require(readr)
 
 
 # Set working directory
-setwd('G:/My Documents/GitHub/glar')
+setwd('~/Documents/GitHub/glar')
 getwd()
 
 
