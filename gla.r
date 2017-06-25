@@ -11,9 +11,9 @@
 
 
 # Load required packages
+require(readr)
 require(ggplot2)
 require(data.table)
-require(sqldf)
 
 
 # Use data.table
@@ -201,24 +201,29 @@ write_excel_csv(gl[eff_date < beg_dt |
 
 
 # 3i. Percent of COA without activity
-gl_accts <-
-  suppressWarnings(sqldf("SELECT DISTINCT account AS accountgl FROM gl"))
-coa_accts <-
-  suppressWarnings(sqldf("SELECT DISTINCT account AS accountcoa FROM coa"))
-coa_gl <-
-  sqldf(
-    "SELECT accountgl, accountcoa FROM coa_accts c LEFT JOIN gl_accts g 
-    ON c.accountcoa = g.accountgl"
-  )
+gl_accts <- unique(gl, by = "account")
+colnames(gl_accts)[11] <- "accountgl"
+
+coa_accts <- unique(coa, by = "account")
+colnames(coa_accts)[1] <- "accountcoa"
+
+gl_accts <- data.table(gl_accts)
+coa_accts <- data.table(coa_accts)
+setkey(gl_accts, accountgl)
+setkey(coa_accts, accountcoa)
+coa_gl <- merge(coa_accts, gl_accts, by.x = "accountcoa", by.y = "accountgl", 
+                all.x = TRUE)
+
 coa_gl <- data.table(coa_gl)
-coa_only <- sum(is.na(coa_gl))
+coa_only <- sum(is.na(coa_gl$jrnl_id))
 coa_tot <- coa_gl[, .N]
 coa_perc <- round((coa_only / coa_tot) * 100, digits = 0)
-coa_gl$Flag <- is.na(coa_gl$accountgl)
-coa_gl <- within(coa_gl, Flag[is.na(coa_gl$accountgl)] <- "COA Only")
-coa_gl <- within(coa_gl, Flag[!is.na(coa_gl$accountgl)] <- "Account Used")
-coa_out <- coa_gl[, accountgl:=NULL]
+coa_gl$Flag <- is.na(coa_gl$jrnl_id)
+coa_gl <- within(coa_gl, Flag[is.na(coa_gl$jrnl_id)] <- "COA Only")
+coa_gl <- within(coa_gl, Flag[!is.na(coa_gl$jrnl_id)] <- "Account Used")
+coa_out <- coa_gl[, jrnl_id:=NULL]
 colnames(coa_out)[1] <- "Account"
+coa_out <- coa_out[, c("Account", "Flag")]
 write_excel_csv(coa_out, path = "output/3i_coa_unused.csv", na = "")
 
 plot3i <-
