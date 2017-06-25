@@ -10,3 +10,4 @@
 install.packages("ggplot2")
 install.packages("readr")
 install.packages("data.table")
+install.packages("tidyverse")
