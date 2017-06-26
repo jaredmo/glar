@@ -14,6 +14,8 @@
 require(readr)
 require(ggplot2)
 require(data.table)
+require(chron)
+require(timeDate)
 
 
 # Use data.table
@@ -70,17 +72,17 @@ gl_debits <- gl[amount > 0 & system == man_flg]
 gl_credits <- gl[amount <= 0 & system == man_flg]
 gl_debits <-
   gl_debits[, .(
-    max = round(max(amount), -3) / div,
-    sum = round(sum(amount), -3) / div,
+    max = round(max(amount),-3) / div,
+    sum = round(sum(amount),-3) / div,
     count = .N,
-    mean = round(mean(amount), -3) / div
+    mean = round(mean(amount),-3) / div
   ), keyby = .(user_id)]
 gl_credits <-
   gl_credits[, .(
-    min = round(min(amount), -3) / div,
-    sum = round(sum(amount), -3) / div,
+    min = round(min(amount),-3) / div,
+    sum = round(sum(amount),-3) / div,
     count = .N,
-    mean = round(mean(amount), -3) / div
+    mean = round(mean(amount),-3) / div
   ), keyby = .(user_id)]
 
 plot2b_dr <-
@@ -211,8 +213,12 @@ gl_accts <- data.table(gl_accts)
 coa_accts <- data.table(coa_accts)
 setkey(gl_accts, accountgl)
 setkey(coa_accts, accountcoa)
-coa_gl <- merge(coa_accts, gl_accts, by.x = "accountcoa", by.y = "accountgl", 
-                all.x = TRUE)
+coa_gl <-
+  merge(coa_accts,
+        gl_accts,
+        by.x = "accountcoa",
+        by.y = "accountgl",
+        all.x = TRUE)
 
 coa_gl <- data.table(coa_gl)
 coa_only <- sum(is.na(coa_gl$jrnl_id))
@@ -220,8 +226,9 @@ coa_tot <- coa_gl[, .N]
 coa_perc <- round((coa_only / coa_tot) * 100, digits = 0)
 coa_gl$Flag <- is.na(coa_gl$jrnl_id)
 coa_gl <- within(coa_gl, Flag[is.na(coa_gl$jrnl_id)] <- "COA Only")
-coa_gl <- within(coa_gl, Flag[!is.na(coa_gl$jrnl_id)] <- "Account Used")
-coa_out <- coa_gl[, jrnl_id:=NULL]
+coa_gl <-
+  within(coa_gl, Flag[!is.na(coa_gl$jrnl_id)] <- "Account Used")
+coa_out <- coa_gl[, jrnl_id := NULL]
 colnames(coa_out)[1] <- "Account"
 coa_out <- coa_out[, c("Account", "Flag")]
 write_excel_csv(coa_out, path = "output/3i_coa_unused.csv", na = "")
@@ -242,6 +249,16 @@ plot3i <-
 plot3i
 
 
+# 4a: Journal lines posted on weekends or holidays
+txt4a <-
+  paste("There are", gl[is.weekend(post_date), .N], "lines posted on weekends.")
+x <- holidayNYSE()
+txt4a2 <-
+  paste("There are", gl[post_date %in% as.Date(holidayNYSE()), .N], "lines posted on US holidays.")
+write_excel_csv(gl[is.weekend(post_date) |
+                        post_date %in% as.Date(holidayNYSE())], path = "output/4a_gl_wknd_hol.csv", na = "")
+
+
 # 4c: Journal lines with same preparer and approver
 gl_users_dtl <-
   rbind(gl[apprvr_id == user_id], gl[is.na(apprvr_id)])
@@ -249,7 +266,7 @@ gl_users_dtl <- gl_users_dtl[system == man_flg]
 gl_users <-
   gl_users_dtl[, .N, by = .(user_id, posting_yr, posting_pd)]
 write_excel_csv(gl_users_dtl, path = "output/4c_gl_users_dtl.csv", na = "")
-plot4c <- ggplot(gl_users, aes(x = reorder(user_id, -N), y = N)) +
+plot4c <- ggplot(gl_users, aes(x = reorder(user_id,-N), y = N)) +
   geom_bar(stat = "identity") + facet_grid(posting_yr + posting_pd ~ .) +
   labs(
     title = "",

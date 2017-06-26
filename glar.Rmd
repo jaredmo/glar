@@ -77,7 +77,6 @@ print("Top 10 Users by Min Credit")
 head(gl_credits[order(rank(min))],10)
 plot2b_cr
 ```
-Note: See output folder for top 10 debit and credit line detail.
 
 
 ###3a: Journal lines with blank user
@@ -98,7 +97,6 @@ txt3b_sys
 ```{r echo=FALSE}
 txt3c
 ```
-Note: See output folder for unbalanced journal detail.
 
 
 ###3d: Journal lines with a negative debit or credit amount
@@ -108,42 +106,43 @@ txt3d_dr_sys
 txt3d_cr_man
 txt3d_cr_sys
 ```
-Note: See output folder for journal lines with negative debit or credit amount.
 
 
 ###3e: Journal lines with a blank effective date
 ```{r echo=FALSE}
 txt3e
 ```
-Note: See output folder for journal lines with a blank effective date.
 
 
 ###3f: Journal lines with a blank posted date
 ```{r echo=FALSE}
 txt3f
 ```
-Note: See output folder for journal lines with a blank posted date.
 
 
 ###3g: Journal lines with a blank entry description
 ```{r echo=FALSE}
 txt3g
 ```
-Note: See output folder for journal lines with a blank entry description.
 
 
 ###3h: Journal lines with an effective date outside test period
 ```{r echo=FALSE}
 txt3h
 ```
-Note: See output folder for journal lines with an effective date outside test period.
 
 
 ###3i: Percent of COA without activity
 ```{r echo=FALSE}
 plot3i
 ```
-Note: See output folder for detail.
+
+
+###4a: Journal lines posted on weekends or holidays
+```{r echo=FALSE}
+txt4a
+txt4a2
+```
 
 
 ###4c: Journal lines with same preparer and approver
