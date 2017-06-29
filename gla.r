@@ -251,12 +251,13 @@ plot3i
 
 # 4a: Journal lines posted on weekends or holidays
 txt4a <-
-  paste("There are", gl[is.weekend(post_date), .N], "lines posted on weekends.")
-x <- holidayNYSE()
+  paste("There are", gl[is.weekend(post_date) & system == man_flg, .N], "manual lines posted on weekends.")
 txt4a2 <-
-  paste("There are", gl[post_date %in% as.Date(holidayNYSE()), .N], "lines posted on US holidays.")
-write_excel_csv(gl[is.weekend(post_date) |
-                        post_date %in% as.Date(holidayNYSE())], path = "output/4a_gl_wknd_hol.csv", na = "")
+  paste("There are", gl[post_date %in% as.Date(holidayNYSE()) & system == man_flg, .N], "manual lines posted on US holidays.")
+gl_wknd_hol_dtl <- gl[(is.weekend(post_date) | post_date %in% as.Date(holidayNYSE())) & system == man_flg]
+gl_wknd_hol <- gl_wknd_hol_dtl[, .N, by = .(user_id, apprvr_id)] 
+gl_wknd_hol <- gl_wknd_hol[order(-N)]
+write_excel_csv(gl_wknd_hol_dtl, path = "output/4a_gl_wknd_hol.csv", na = "")
 
 
 # 4c: Journal lines with same preparer and approver

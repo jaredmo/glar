@@ -139,11 +139,16 @@ plot3i
 
 
 ###4a: Journal lines posted on weekends or holidays
+All US NYSE holidays included.
 ```{r echo=FALSE}
 txt4a
 txt4a2
 ```
 
+Count by User ID
+```{r echo=FALSE}
+gl_wknd_hol
+```
 
 ###4c: Journal lines with same preparer and approver
 ```{r echo=FALSE}
