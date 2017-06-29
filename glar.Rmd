@@ -150,6 +150,12 @@ Count by User ID
 gl_wknd_hol
 ```
 
+###4b: Duplicate lines to the same account
+```{r echo=FALSE}
+txt4b
+txt4b2
+```
+
 ###4c: Journal lines with same preparer and approver
 ```{r echo=FALSE}
 plot4c

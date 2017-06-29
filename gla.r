@@ -260,6 +260,15 @@ gl_wknd_hol <- gl_wknd_hol[order(-N)]
 write_excel_csv(gl_wknd_hol_dtl, path = "output/4a_gl_wknd_hol.csv", na = "")
 
 
+# 4b: Duplicate lines to the same account
+gl_dupacct <- gl[system == man_flg, .N, by = .(jrnl_id, account)]
+gl_dupacct <- gl_dupacct[N > 1]
+gl_dupacct <- gl_dupacct[order(-N, account)]
+txt4b <- paste("There are", gl_dupacct[, .N], "manual lines with duplicate accounts on the same entry.")
+txt4b2 <- paste("Max:", max(gl_dupacct$N), " Mean:", round(mean(gl_dupacct$N), 0), " Min:", min(gl_dupacct$N))
+write_excel_csv(gl_dupacct, path = "output/4b_gl_dupacct.csv", na = "")
+
+
 # 4c: Journal lines with same preparer and approver
 gl_users_dtl <-
   rbind(gl[apprvr_id == user_id], gl[is.na(apprvr_id)])
