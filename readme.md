@@ -1,6 +1,3 @@
-UPDATE 4/26/17: Version 1.0 of this project is in active development.
-
-
 # General Ledger Analytics for R
 
 A series of analytics for ERP general ledger data. Purpose is to identify data quality issues and unusual patterns.
